@@ -1,4 +1,5 @@
 llama-cpp-python
-llama-index
+llama-index==0.10.24
 gradio
 PyMuPDF
+sentence-transformers
