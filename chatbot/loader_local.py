@@ -2,9 +2,6 @@ import fitz  # PyMuPDF
 from pathlib import Path
 
 def extract_text_from_pdf(pdf_path: str) -> str:
-    """
-    Extrai texto completo de um ficheiro PDF.
-    """
     text = ""
     with fitz.open(pdf_path) as doc:
         for page in doc:
@@ -12,10 +9,6 @@ def extract_text_from_pdf(pdf_path: str) -> str:
     return text.strip()
 
 def load_all_pdfs_recursively(base_dir: str) -> list:
-    """
-    Percorre todas as subpastas e extrai o texto dos PDFs encontrados.
-    Retorna uma lista de dicionários com 'text' e 'metadata'.
-    """
     base_path = Path(base_dir)
     pdf_files = list(base_path.rglob("*.pdf"))
     documents = []
@@ -23,8 +16,8 @@ def load_all_pdfs_recursively(base_dir: str) -> list:
     for pdf_file in pdf_files:
         content = extract_text_from_pdf(str(pdf_file))
         metadata = {
-            "source": pdf_file.name,
-            "path": str(pdf_file.parent)
+            "file_name": pdf_file.stem.replace("_", " ").replace("-", " "),
+            "category": pdf_file.parent.name
         }
         documents.append({"text": content, "metadata": metadata})
 
